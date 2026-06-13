@@ -1,0 +1,8 @@
+# Build output
+build/
+
+# Large model files
+models/*.rkllm
+models/*.gguf
+models/*.bin
+!models/.gitkeep
