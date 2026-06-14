@@ -6,3 +6,6 @@ models/*.rkllm
 models/*.gguf
 models/*.bin
 !models/.gitkeep
+
+# Vendored third-party deps (fetched via scripts/fetch_deps.sh)
+third_party/

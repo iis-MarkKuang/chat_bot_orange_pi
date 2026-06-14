@@ -20,6 +20,12 @@ if(NOT EXISTS "${RKLLM_LIB}")
   message(FATAL_ERROR "未找到 ${RKLLM_LIB}，请确认 RKLLM 运行时已安装。")
 endif()
 
-add_executable(chat src/main.cpp)
-target_include_directories(chat PRIVATE "${RKLLM_INCLUDE_DIR}")
+# 第三方依赖：nlohmann/json 单头文件（用 scripts/fetch_deps.sh 下载到 third_party/）
+set(THIRD_PARTY_DIR "${CMAKE_CURRENT_SOURCE_DIR}/third_party")
+if(NOT EXISTS "${THIRD_PARTY_DIR}/nlohmann/json.hpp")
+  message(FATAL_ERROR "未找到 ${THIRD_PARTY_DIR}/nlohmann/json.hpp，请先运行 bash scripts/fetch_deps.sh")
+endif()
+
+add_executable(chat src/main.cpp src/tools.cpp)
+target_include_directories(chat PRIVATE "${RKLLM_INCLUDE_DIR}" "${THIRD_PARTY_DIR}")
 target_link_libraries(chat "${RKLLM_LIB}" pthread)
